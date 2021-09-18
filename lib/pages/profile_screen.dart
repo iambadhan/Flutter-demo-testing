@@ -11,6 +11,9 @@ class ProfileScreen extends StatelessWidget {
         height: _height,
         width: _width,
         color: Colors.deepPurple[300],
+        child: Column(
+          children: [],
+        ),
       ),
       appBar: AppBar(
         leading: IconButton(
