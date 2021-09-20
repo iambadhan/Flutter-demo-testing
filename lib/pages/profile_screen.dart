@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  TextEditingController _fruitAddctl = TextEditingController();
+  List fruitList = [];
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -12,7 +19,57 @@ class ProfileScreen extends StatelessWidget {
         width: _width,
         color: Colors.deepPurple[300],
         child: Column(
-          children: [],
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  print(fruitList);
+                },
+                child: Text("Show List")),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              controller: _fruitAddctl,
+              decoration: InputDecoration(labelText: "data", hintText: "Easy"),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      fruitList.add(_fruitAddctl.text);
+                    });
+                    print(fruitList);
+                    _fruitAddctl.clear();
+                  },
+                  child: Text("Add Fruit")),
+            ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: fruitList.length,
+              itemBuilder: (buildContext, index) {
+                return Card(
+                  color: Colors.deepPurpleAccent[100],
+                  elevation: 6,
+                  child: Center(
+                    child: Container(
+                      child: Center(
+                          child: Text(
+                        fruitList[index],
+                        style: TextStyle(fontSize: 28),
+                      )),
+                    ),
+                  ),
+                );
+              },
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            )
+          ],
         ),
       ),
       appBar: AppBar(
